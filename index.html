@@ -63,6 +63,52 @@ body{font-family:'Be Vietnam Pro',sans-serif;background:var(--navy);color:#fff;m
 .loading .spin{display:inline-block;width:28px;height:28px;border:3px solid rgba(201,168,76,.2);border-top-color:var(--gold);border-radius:50%;animation:sp .8s linear infinite}
 @keyframes sp{to{transform:rotate(360deg)}}
 .err{background:rgba(231,76,60,.1);border:1px solid rgba(231,76,60,.2);border-radius:10px;padding:16px;margin:12px 0;color:#e74c3c;font-size:12px;line-height:1.6}
+/* ===== RSVP block ===== */
+.rsvp{background:linear-gradient(135deg,rgba(201,168,76,.16),rgba(19,34,64,.6));border:1.5px solid rgba(201,168,76,.4);border-radius:16px;padding:22px 18px;margin:18px 0;text-align:center}
+.rsvp h3{color:var(--gold);font-size:19px;font-weight:800;margin-bottom:4px}
+.rsvp p{color:var(--goldbg);font-size:12px;opacity:.85;margin-bottom:14px}
+.rsvp-bts{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.rb{padding:12px 26px;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;transition:transform .15s,opacity .15s}
+.rb:hover{transform:translateY(-2px)}
+.rb-yes{background:linear-gradient(135deg,var(--green),#2ecc71);color:#fff}
+.rb-no{background:rgba(255,255,255,.08);color:var(--goldbg);border:1px solid rgba(255,255,255,.15)}
+.rsvp-msg{margin-top:14px;font-size:13px;line-height:1.6;color:#fff;display:none}
+.rsvp-msg.show{display:block}
+.rsvp-msg .lnk{color:var(--gold);text-decoration:underline;cursor:pointer;font-weight:600}
+/* ===== Modal ===== */
+.ov{position:fixed;inset:0;background:rgba(5,10,20,.78);display:none;align-items:center;justify-content:center;z-index:1000;padding:16px}
+.ov.show{display:flex}
+.md{background:#fff;color:#222;border-radius:18px;max-width:430px;width:100%;max-height:92vh;overflow-y:auto;padding:26px 22px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.md h3{color:var(--dblue);font-size:19px;font-weight:800;margin-bottom:4px}
+.md .sub{color:#777;font-size:12px;margin-bottom:16px}
+.fg{margin-bottom:13px;text-align:left}
+.fg label{display:block;font-size:12px;font-weight:600;color:#444;margin-bottom:5px}
+.fg label .req{color:var(--red)}
+.fg input,.fg select{width:100%;padding:11px 12px;border:1.5px solid #e0e0e0;border-radius:9px;font-size:14px;font-family:inherit;outline:none;transition:border-color .15s}
+.fg input:focus,.fg select:focus{border-color:var(--gold)}
+.fg .err-i{border-color:var(--red)}
+.fg-radio{display:flex;gap:10px}
+.fg-radio label{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:10px;border:1.5px solid #e0e0e0;border-radius:9px;cursor:pointer;font-weight:500;margin:0}
+.fg-radio input{display:none}
+.fg-radio label.sel{border-color:var(--gold);background:rgba(201,168,76,.12);color:var(--dblue);font-weight:700}
+.md-bts{display:flex;gap:10px;margin-top:18px}
+.mb{flex:1;padding:12px;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit}
+.mb-cancel{background:#eee;color:#666}
+.mb-send{background:linear-gradient(135deg,var(--gold),#E8D5A0);color:var(--navy)}
+.mb-send:disabled{opacity:.6;cursor:not-allowed}
+.md-ferr{color:var(--red);font-size:12px;margin-top:8px;text-align:center;min-height:16px}
+.md-ok{text-align:center;padding:14px 0}
+.md-ok .ic{font-size:46px;margin-bottom:8px}
+.md-ok h3{color:var(--green);font-size:20px}
+.md-ok p{color:#666;font-size:13px;margin-top:6px;line-height:1.6}
+/* ===== MTQ thank-you popup (toast) ===== */
+.mtq-toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(140%);background:linear-gradient(135deg,var(--dblue),var(--navy));border:1.5px solid var(--gold);border-radius:16px;padding:18px 22px;max-width:380px;width:calc(100% - 32px);box-shadow:0 16px 48px rgba(0,0,0,.5);z-index:1100;transition:transform .5s cubic-bezier(.2,.8,.2,1);text-align:center}
+.mtq-toast.show{transform:translateX(-50%) translateY(0)}
+.mtq-toast .em{font-size:34px;margin-bottom:6px}
+.mtq-toast .tt{color:var(--gold);font-size:15px;font-weight:800;margin-bottom:4px}
+.mtq-toast .nm{color:#fff;font-size:14px;font-weight:600}
+.mtq-toast .am{color:var(--goldbg);font-size:17px;font-weight:800;font-family:'Be Vietnam Pro',monospace;margin-top:4px}
+.mtq-toast .cl{position:absolute;top:8px;right:12px;color:rgba(255,255,255,.5);cursor:pointer;font-size:18px;line-height:1;background:none;border:none}
 @media(max-width:600px){.sts{grid-template-columns:repeat(2,1fr)}.cb .n{font-size:24px}.bg{grid-template-columns:1fr}.bk{padding:14px}.st .v{font-size:18px}}
 </style>
 </head>
@@ -87,12 +133,77 @@ body{font-family:'Be Vietnam Pro',sans-serif;background:var(--navy);color:#fff;m
   </div>
 </div>
 
+<!-- RSVP modal -->
+<div class="ov" id="rsvpOv">
+  <div class="md" id="rsvpMd">
+    <div id="rsvpForm">
+      <h3>🎓 Đăng ký về dự Hội khóa</h3>
+      <div class="sub">Điền thông tin để BTC sắp xếp đón tiếp. (*) là bắt buộc.</div>
+      <div class="fg">
+        <label>Họ và tên <span class="req">*</span></label>
+        <input type="text" id="f-name" placeholder="VD: Nguyễn Văn A">
+      </div>
+      <div class="fg">
+        <label>Số điện thoại <span class="req">*</span></label>
+        <input type="tel" id="f-phone" inputmode="numeric" placeholder="VD: 0975xxxxxx">
+      </div>
+      <div class="fg">
+        <label>Email</label>
+        <input type="email" id="f-email" placeholder="(không bắt buộc)">
+      </div>
+      <div class="fg">
+        <label>Lớp <span class="req">*</span></label>
+        <select id="f-class">
+          <option value="">— Chọn lớp —</option>
+          <option>Chuyên Toán</option><option>Chuyên Lý</option><option>Chuyên Hóa</option>
+          <option>Chuyên Sinh</option><option>Chuyên Sử</option><option>Chuyên Địa</option>
+          <option>Chuyên Tin</option><option>Chuyên Văn</option><option>Chuyên Anh</option>
+          <option>Chuyên Pháp</option><option>Bilan</option><option>Chuyên Nga</option>
+          <option>Phổ thông 1</option><option>Phổ thông 2</option><option>Phổ thông 3</option>
+          <option>Phổ thông 4</option><option>A1</option><option>A2</option>
+          <option>Khác / Không nhớ</option>
+        </select>
+      </div>
+      <div class="fg">
+        <label>Bạn là đại diện liên lạc của lớp?</label>
+        <div class="fg-radio">
+          <label class="sel" id="dd-no"><input type="radio" name="daidien" value="Không" checked>Không</label>
+          <label id="dd-yes"><input type="radio" name="daidien" value="Có">Có</label>
+        </div>
+      </div>
+      <div class="md-ferr" id="fErr"></div>
+      <div class="md-bts">
+        <button class="mb mb-cancel" onclick="closeRsvp()">Để sau</button>
+        <button class="mb mb-send" id="fSend" onclick="submitRsvp()">Gửi đăng ký</button>
+      </div>
+    </div>
+    <div id="rsvpDone" style="display:none">
+      <div class="md-ok">
+        <div class="ic">🎉</div>
+        <h3>Đăng ký thành công!</h3>
+        <p id="doneMsg">Hẹn gặp bạn ngày 08/08/2026 tại sân trường Chuyên Nguyễn Huệ.<br>Thanh Xuân Vẫy Gọi!</p>
+      </div>
+      <div class="md-bts"><button class="mb mb-send" onclick="closeRsvp()">Đóng</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- MTQ thank-you toast -->
+<div class="mtq-toast" id="mtqToast">
+  <button class="cl" onclick="hideMtq()">×</button>
+  <div class="em">🙏</div>
+  <div class="tt">Cảm ơn Mạnh Thường Quân</div>
+  <div class="nm" id="mtqName"></div>
+  <div class="am" id="mtqAmount"></div>
+</div>
+
 <script>
 /* ================================================================
    SHEET ID đã điền sẵn. Yêu cầu Sheets: Share → Anyone with link → Viewer
    ================================================================ */
 const SHEET_ID = '1JklOTleXY0LfVNKxfZ6pM7ljv9HDtOs-TfwHbmlkZwU';
-const TABS = { cauHinh:'Cấu hình', dashboard:'DASHBOARD', dongGop:'Đóng góp', checklist:'Checklist', rsvp:'RSVP' };
+const RSVP_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxp2dBOXnT7Yq6WWxROYTfh8Ef14rq8mbbgPOjIAlM6DLEGZvzleYlJXD75x2WtfIiz/exec';
+const TABS = { cauHinh:'Cấu hình', dashboard:'DASHBOARD', dongGop:'Đóng góp', checklist:'Checklist', rsvp:'RSVP', hof:'Hall of Fame' };
 const EVENT = new Date('2026-08-08T07:00:00+07:00');
 const REFRESH_MS = 5 * 60 * 1000;
 /* ================================================================ */
@@ -156,9 +267,10 @@ async function fetchTab(tab) {
 }
 
 async function loadAll() {
-  const [ch, db, dg, cl, rsvp] = await Promise.all([
+  const [ch, db, dg, cl, rsvp, hof] = await Promise.all([
     fetchTab(TABS.cauHinh), fetchTab(TABS.dashboard),
-    fetchTab(TABS.dongGop), fetchTab(TABS.checklist), fetchTab(TABS.rsvp)
+    fetchTab(TABS.dongGop), fetchTab(TABS.checklist), fetchTab(TABS.rsvp),
+    fetchTab(TABS.hof)
   ]);
 
   if (!ch && !db) {
@@ -240,7 +352,78 @@ async function loadAll() {
   d.clTong = d.checklist.length;
   d.clXong = d.checklist.filter(i => i.st === 'Xong').length;
 
+  // === HALL OF FAME → danh sách MTQ (để popup cảm ơn) ===
+  // Cột: STT(0) Cấp(1) Họ tên/Đơn vị(2) Lớp(3) Số tiền(4) Hiển thị(5) Ghi chú(6)
+  d.mtqList = [];
+  if (hof) {
+    let tier = '';
+    for (let i = 4; i < hof.length; i++) {
+      const c0 = cell(hof,i,0);
+      // dòng tiêu đề cấp (không phải số thứ tự)
+      if (c0 && !/^\d+$/.test(c0)) { tier = c0; continue; }
+      const ten = cell(hof,i,2);
+      const tien = num(cell(hof,i,4));
+      if (!ten && !tien) continue;            // dòng trống
+      const hienThi = cell(hof,i,5);          // "Ẩn danh" / "Công khai" / để trống
+      const anDanh = /ẩn\s*danh/i.test(hienThi) || !ten;
+      d.mtqList.push({
+        key: (i + '|' + ten + '|' + tien),    // định danh để phát hiện mới
+        ten: ten,
+        lop: cell(hof,i,3),
+        tien: tien,
+        tier: tier,
+        anDanh: anDanh
+      });
+    }
+  }
+
   render(d);
+  checkNewMTQ(d.mtqList);
+}
+
+/* ===== MTQ thank-you popup =====
+   So sánh danh sách MTQ giữa các lần refresh; khi có MTQ MỚI có số tiền,
+   hiện popup cảm ơn (xếp hàng nếu nhiều người). Lần tải đầu KHÔNG bắn popup
+   cho toàn bộ danh sách cũ — chỉ ghi nhận làm "đã biết". */
+let mtqKnown = null;          // Set các key đã biết
+let mtqQueue = [];            // hàng đợi popup
+let mtqShowing = false;
+
+function checkNewMTQ(list) {
+  const withMoney = (list || []).filter(m => m.tien > 0);
+  if (mtqKnown === null) {
+    // lần đầu: ghi nhận tất cả, không bắn popup
+    mtqKnown = new Set(withMoney.map(m => m.key));
+    return;
+  }
+  const fresh = withMoney.filter(m => !mtqKnown.has(m.key));
+  fresh.forEach(m => { mtqKnown.add(m.key); mtqQueue.push(m); });
+  if (fresh.length) drainMTQ();
+}
+
+function drainMTQ() {
+  if (mtqShowing || !mtqQueue.length) return;
+  mtqShowing = true;
+  const m = mtqQueue.shift();
+  const el = document.getElementById('mtqToast');
+  const nameEl = document.getElementById('mtqName');
+  const amtEl = document.getElementById('mtqAmount');
+  if (m.anDanh) {
+    nameEl.textContent = 'MTQ ẩn danh' + (m.tier ? ' · ' + m.tier : '');
+  } else {
+    nameEl.textContent = m.ten + (m.lop ? ' (' + m.lop + ')' : '');
+  }
+  amtEl.textContent = 'đã đóng góp ' + fmt(m.tien) + 'đ';
+  el.classList.add('show');
+  clearTimeout(el._t);
+  el._t = setTimeout(() => { hideMtq(); }, 6500);
+}
+
+function hideMtq() {
+  const el = document.getElementById('mtqToast');
+  el.classList.remove('show');
+  mtqShowing = false;
+  setTimeout(drainMTQ, 600);   // hiện người tiếp theo nếu còn
 }
 
 function render(d) {
@@ -289,7 +472,7 @@ function render(d) {
   document.getElementById('app').innerHTML = `
     <div class="lks">
       <a href="https://www.facebook.com/groups/2199210970835888" target="_blank" class="lk-fb">📘 Group Facebook</a>
-      <a href="https://drive.google.com/drive/folders/10gIdKH8vEoyrmQRIhm8PyBNg3TUGeIlW" target="_blank" class="lk-dr">📁 Drive chung</a>
+      <a href="https://drive.google.com/drive/u/0/folders/1SM3cPp8FiJg0z2Mm0_o8XDbBaxu1-QtW" target="_blank" class="lk-dr">📁 Drive chung</a>
       ${extraLinks}
     </div>
     <div class="sts">
@@ -302,6 +485,17 @@ function render(d) {
     </div>
     <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--goldbg);margin-top:8px"><span>Quỹ: ${fmt(d.daHuyDong)}đ</span><span>Mục tiêu: ${fmt(d.mucTieu)}đ</span></div>
     <div class="gg"><div class="gf" style="width:${Math.max(pct,2)}%;background:linear-gradient(90deg,var(--green),var(--gold))">${pct}%</div></div>
+    <div class="rsvp">
+      <h3>🎓 Bạn sẽ về trường chứ?</h3>
+      <p>Xác nhận tham dự để BTC chuẩn bị đón tiếp chu đáo. Hẹn gặp ngày 08/08/2026!</p>
+      <div class="rsvp-bts">
+        <button class="rb rb-yes" onclick="openRsvp()">✅ Có, mình sẽ về</button>
+        <button class="rb rb-no" onclick="rsvpNo()">😢 Tiếc quá, chưa thể</button>
+      </div>
+      <div class="rsvp-msg" id="rsvpNoMsg">
+        Tiếc quá! Hội khóa 20 năm sẽ luôn nhớ bạn. Nếu đổi ý, <span class="lnk" onclick="openRsvp()">bấm vào đây để đăng ký nhé</span> 💛
+      </div>
+    </div>
     ${bankH}
     <div class="sc"><h2>👥 Ban Tổ Chức</h2></div>
     ${btcH}
@@ -336,6 +530,89 @@ function stab(id, el) {
   document.querySelectorAll('.tab').forEach(e => e.classList.remove('active'));
   document.getElementById('t-'+id).classList.add('active');
   el.classList.add('active');
+}
+
+/* ===== RSVP form ===== */
+function openRsvp() {
+  document.getElementById('rsvpForm').style.display = 'block';
+  document.getElementById('rsvpDone').style.display = 'none';
+  document.getElementById('fErr').textContent = '';
+  document.getElementById('rsvpOv').classList.add('show');
+}
+function closeRsvp() { document.getElementById('rsvpOv').classList.remove('show'); }
+function rsvpNo() { document.getElementById('rsvpNoMsg').classList.add('show'); }
+
+// click overlay nền để đóng
+document.getElementById('rsvpOv').addEventListener('click', e => {
+  if (e.target.id === 'rsvpOv') closeRsvp();
+});
+// toggle giao diện radio "đại diện"
+document.querySelectorAll('.fg-radio input').forEach(r => {
+  r.addEventListener('change', () => {
+    document.querySelectorAll('.fg-radio label').forEach(l => l.classList.remove('sel'));
+    r.closest('label').classList.add('sel');
+  });
+});
+
+async function submitRsvp() {
+  const name = document.getElementById('f-name');
+  const phone = document.getElementById('f-phone');
+  const email = document.getElementById('f-email').value.trim();
+  const cls = document.getElementById('f-class');
+  const daiDien = document.querySelector('.fg-radio input:checked').value;
+  const err = document.getElementById('fErr');
+  const btn = document.getElementById('fSend');
+
+  [name, phone, cls].forEach(el => el.classList.remove('err-i'));
+  err.textContent = '';
+
+  // validate
+  if (!name.value.trim()) { name.classList.add('err-i'); err.textContent = 'Vui lòng nhập họ tên.'; return; }
+  const ph = phone.value.replace(/\s+/g, '');
+  if (!/^0\d{8,10}$/.test(ph)) { phone.classList.add('err-i'); err.textContent = 'Số điện thoại chưa hợp lệ (VD: 0975xxxxxx).'; return; }
+  if (!cls.value) { cls.classList.add('err-i'); err.textContent = 'Vui lòng chọn lớp.'; return; }
+
+  btn.disabled = true; btn.textContent = 'Đang gửi...';
+
+  const payload = { hoTen: name.value.trim(), sdt: ph, email: email, lop: cls.value, daiDien: daiDien, seToi: 'Có' };
+
+  try {
+    // text/plain để tránh preflight CORS với Apps Script
+    const r = await fetch(RSVP_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify(payload)
+    });
+    const res = await r.json();
+    if (res.ok) {
+      showRsvpDone('Hẹn gặp bạn ngày 08/08/2026 tại sân trường Chuyên Nguyễn Huệ.<br>Thanh Xuân Vẫy Gọi! 💛');
+      setTimeout(loadAll, 1500);
+    } else if (res.dup) {
+      showRsvpDone('Bạn đã đăng ký trước đó rồi. Cảm ơn và hẹn gặp lại! 💛');
+    } else {
+      err.textContent = res.msg || 'Có lỗi xảy ra, vui lòng thử lại.';
+      btn.disabled = false; btn.textContent = 'Gửi đăng ký';
+    }
+  } catch (e) {
+    // no-cors fallback: vẫn ghi được nhưng không đọc được phản hồi
+    try {
+      await fetch(RSVP_ENDPOINT, { method:'POST', mode:'no-cors',
+        headers:{'Content-Type':'text/plain;charset=utf-8'}, body: JSON.stringify(payload) });
+      showRsvpDone('Đã gửi đăng ký. Cảm ơn bạn, hẹn gặp ngày 08/08/2026! 💛');
+      setTimeout(loadAll, 1500);
+    } catch (e2) {
+      err.textContent = 'Không gửi được. Kiểm tra kết nối mạng và thử lại.';
+      btn.disabled = false; btn.textContent = 'Gửi đăng ký';
+    }
+  }
+}
+
+function showRsvpDone(msg) {
+  document.getElementById('rsvpForm').style.display = 'none';
+  document.getElementById('doneMsg').innerHTML = msg;
+  document.getElementById('rsvpDone').style.display = 'block';
+  const btn = document.getElementById('fSend');
+  btn.disabled = false; btn.textContent = 'Gửi đăng ký';
 }
 
 function countdown() {
