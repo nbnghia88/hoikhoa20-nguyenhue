@@ -333,7 +333,7 @@ const TABS = { cauHinh:'Cấu hình', dashboard:'DASHBOARD', dongGop:'Đóng gó
 const EVENT = new Date('2026-08-08T07:00:00+07:00');
 const REFRESH_MS = 5 * 60 * 1000;
 /* Link album Drive để nút "Xem toàn bộ" trỏ tới (BTC sửa được trong tab Cấu hình ô formLink nếu muốn) */
-const ALBUM_FALLBACK = 'https://drive.google.com/drive/u/0/folders/1SM3cPp8FiJg0z2Mm0_o8XDbBaxu1-QtW';
+const ALBUM_FALLBACK = 'https://drive.google.com/drive/folders/10gIdKH8vEoyrmQRIhm8PyBNg3TUGeIlW';
 
 function csvUrl(tab) {
   return `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(tab)}&headers=0&r=${Date.now()}`;
@@ -385,6 +385,24 @@ function num(s) {
 function fmt(n) { return Math.round(n || 0).toLocaleString('vi-VN'); }
 function clean(s) { return (s && s.startsWith('(')) ? '' : s; }
 
+/* Tìm giá trị theo NHÃN ở cột A (không phụ thuộc vị trí dòng cố định).
+   labels: mảng từ khóa; trả về nội dung cột `valCol` (mặc định B=1) của dòng khớp đầu tien. */
+function findByLabel(rows, labels, valCol) {
+  if (!rows) return '';
+  valCol = (valCol === undefined) ? 1 : valCol;
+  const norm = s => (s || '').toString().toLowerCase().normalize('NFC').trim();
+  const keys = labels.map(norm);
+  for (let r = 0; r < rows.length; r++) {
+    const a = norm(cell(rows, r, 0));
+    if (!a) continue;
+    if (keys.some(k => a.includes(k))) {
+      const v = cell(rows, r, valCol);
+      if (v !== '') return v;
+    }
+  }
+  return '';
+}
+
 async function fetchTab(tab) {
   try {
     const r = await fetch(csvUrl(tab));
@@ -407,33 +425,37 @@ async function loadAll() {
 
   const d = {};
 
-  // === CẤU HÌNH ===
-  // row[4]: A="Tên chủ TK:" | B=giá trị | D="Ngân hàng:" | E=giá trị
-  // row[5]: A="Số TK:" | B=giá trị | D="Chi nhánh:" | E=giá trị
-  // row[6]: A="Nội dung CK:" | B=giá trị | D="Hotline:" | E=giá trị
+  // === CẤU HÌNH === (đọc theo NHÃN cột A để miễn nhiễm lệch dòng do merge cell)
   if (ch) {
-    d.tkTen = clean(cell(ch,4,1));
-    d.tkSo  = clean(cell(ch,5,1));
-    d.tkND  = clean(cell(ch,6,1)) || 'HỌ TÊN – LỚP – HK20';
-    d.tkNH  = clean(cell(ch,4,4));
-    d.tkCN  = clean(cell(ch,5,4));
-    d.tkHL  = clean(cell(ch,6,4));
-    // BTC: row[11..14] - Họ tên(B=1), SĐT(D=3), Email(E=4)
+    d.tkTen = clean(findByLabel(ch, ['tên chủ tk','chủ tài khoản','chủ tk']));
+    d.tkSo  = clean(findByLabel(ch, ['số tk','số tài khoản']));
+    d.tkND  = clean(findByLabel(ch, ['nội dung ck','nội dung chuyển'])) || 'HỌ TÊN – LỚP – HK20';
+    d.tkNH  = clean(findByLabel(ch, ['ngân hàng'], 4));
+    d.tkCN  = clean(findByLabel(ch, ['chi nhánh'], 4));
+    d.tkHL  = clean(findByLabel(ch, ['hotline'], 4));
+    // BTC: lấy theo vai trò ở cột A — Họ tên(B=1), SĐT(D=3), Email(E=4)
     d.btc = [];
-    const roles = ['Trưởng ban Tổ chức','Trưởng ban Liên lạc','Thủ quỹ','Trưởng ban Event'];
-    for (let i = 0; i < 4; i++) {
-      const r = 11 + i;
+    const roleKeys = [
+      {role:'Trưởng ban Tổ chức', key:['trưởng ban tổ chức']},
+      {role:'Trưởng ban Liên lạc', key:['trưởng ban liên lạc']},
+      {role:'Thủ quỹ', key:['thủ quỹ']},
+      {role:'Trưởng ban Event', key:['trưởng ban event']}
+    ];
+    roleKeys.forEach(rk => {
+      const name = clean(findByLabel(ch, rk.key, 1));
       d.btc.push({
-        role: cell(ch,r,0) || roles[i],
-        name: clean(cell(ch,r,1)),
-        sdt: clean(cell(ch,r,3)),
-        email: clean(cell(ch,r,4))
+        role: rk.role,
+        name: name,
+        sdt: clean(findByLabel(ch, rk.key, 3)),
+        email: clean(findByLabel(ch, rk.key, 4))
       });
-    }
-    d.mucTieu = num(cell(ch,17,1)) || 500000000;
-    d.formLink = clean(cell(ch,28,1));
-    d.dressCode = clean(cell(ch,29,1));
-    d.guiXe = clean(cell(ch,30,1));
+    });
+    // Mục tiêu quỹ: dò theo NHÃN cột A (chống lệch dòng do merge cell khi xuất CSV)
+    d.mucTieu = num(findByLabel(ch, ['mục tiêu tổng quỹ','mục tiêu quỹ']))
+             || num(cell(ch,17,1)) || 500000000;
+    d.formLink = clean(findByLabel(ch, ['link đăng ký','form đăng ký','link form']));
+    d.dressCode = clean(findByLabel(ch, ['dress code','trang phục']));
+    d.guiXe = clean(findByLabel(ch, ['gửi xe','bãi xe']));
   } else { d.mucTieu = 500000000; d.btc = []; }
 
   // === DASHBOARD ===
@@ -443,7 +465,7 @@ async function loadAll() {
     d.soDu      = num(cell(db,7,1));
     d.soThayCo  = num(cell(db,10,1));
     d.soMTQ     = num(cell(db,11,1));
-    if (!d.mucTieu) d.mucTieu = num(cell(db,4,1)) || 500000000;
+    if (!d.mucTieu) d.mucTieu = num(findByLabel(db, ['mục tiêu','muc tieu'])) || num(cell(db,4,1)) || 500000000;
   } else { d.daHuyDong=0;d.daChi=0;d.soDu=0;d.soThayCo=0;d.soMTQ=0; }
 
   // === RSVP: đếm "Sẽ tới?" = Có (cột index 6), bỏ header row[0] ===
@@ -722,7 +744,7 @@ function render(d) {
   document.getElementById('app').innerHTML = `
     <div class="lks">
       <a href="https://www.facebook.com/groups/2199210970835888" target="_blank" class="lk-fb">📘 Group Facebook</a>
-      <a href="https://drive.google.com/drive/u/0/folders/1SM3cPp8FiJg0z2Mm0_o8XDbBaxu1-QtW" target="_blank" class="lk-dr">📁 Drive chung</a>
+      <a href="https://drive.google.com/drive/folders/10gIdKH8vEoyrmQRIhm8PyBNg3TUGeIlW" target="_blank" class="lk-dr">📁 Drive chung</a>
       ${extraLinks}
     </div>
     <div class="sts">
