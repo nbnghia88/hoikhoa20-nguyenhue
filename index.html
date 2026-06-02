@@ -109,19 +109,138 @@ body{font-family:'Be Vietnam Pro',sans-serif;background:var(--navy);color:#fff;m
 .mtq-toast .nm{color:#fff;font-size:14px;font-weight:600}
 .mtq-toast .am{color:var(--goldbg);font-size:17px;font-weight:800;font-family:'Be Vietnam Pro',monospace;margin-top:4px}
 .mtq-toast .cl{position:absolute;top:8px;right:12px;color:rgba(255,255,255,.5);cursor:pointer;font-size:18px;line-height:1;background:none;border:none}
-@media(max-width:600px){.sts{grid-template-columns:repeat(2,1fr)}.cb .n{font-size:24px}.bg{grid-template-columns:1fr}.bk{padding:14px}.st .v{font-size:18px}}
+/* ===== HERO ký ức ===== */
+.hero{position:relative;border-radius:18px;overflow:hidden;margin:14px 0 6px;min-height:300px;display:flex;align-items:flex-end;background:linear-gradient(135deg,#0d1b33,#1a2f52)}
+.hero img.bgimg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.55}
+.hero .ov2{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,22,40,.15) 0%,rgba(10,22,40,.55) 55%,rgba(10,22,40,.92) 100%)}
+.hero .htx{position:relative;padding:26px 22px 22px;z-index:2;width:100%}
+.hero .htx .pre{color:var(--goldbg);font-size:12px;font-style:italic;letter-spacing:.5px;opacity:.95}
+.hero .htx .big{font-size:clamp(30px,7vw,52px);font-weight:900;line-height:1.02;margin:6px 0;background:linear-gradient(135deg,#E8D5A0,#C9A84C,#fff,#C9A84C);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-shadow:0 2px 20px rgba(0,0,0,.3)}
+.hero .htx .post{color:#fff;font-size:14px;font-weight:600;line-height:1.4}
+.hero .htx .post b{color:var(--gold)}
+.hero .htx .meta{color:var(--goldbg);font-size:12px;margin-top:8px;opacity:.85}
+/* ===== Thư BTC ===== */
+.letter{background:linear-gradient(135deg,rgba(201,168,76,.08),rgba(19,34,64,.35));border:1px solid rgba(201,168,76,.22);border-left:4px solid var(--gold);border-radius:14px;padding:22px 22px 18px;margin:16px 0}
+.letter .lh{color:var(--gold);font-size:15px;font-weight:800;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.letter p{color:rgba(255,255,255,.82);font-size:13.5px;line-height:1.85;margin-bottom:11px}
+.letter p.em{color:#fff;font-weight:600}
+.letter .sign{text-align:right;margin-top:14px;color:var(--goldbg);font-size:13px;font-style:italic;line-height:1.6}
+.letter .sign b{color:var(--gold);font-style:normal;display:block;font-size:14px}
+/* ===== Vì sao / Bạn được gì / Cần làm gì ===== */
+.why{margin:22px 0}
+.why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:10px}
+.why-c{background:rgba(255,255,255,.04);border:1px solid rgba(201,168,76,.14);border-radius:13px;padding:16px 14px}
+.why-c .ic{font-size:26px;margin-bottom:6px}
+.why-c .ti{color:var(--gold);font-size:13.5px;font-weight:700;margin-bottom:4px}
+.why-c .de{color:rgba(255,255,255,.6);font-size:12px;line-height:1.55}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:10px}
+.step{background:linear-gradient(135deg,rgba(201,168,76,.1),rgba(255,255,255,.02));border:1px solid rgba(201,168,76,.2);border-radius:13px;padding:16px 14px;position:relative}
+.step .no{position:absolute;top:-10px;left:14px;width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,var(--gold),#E8D5A0);color:var(--navy);font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 10px rgba(201,168,76,.4)}
+.step .st-t{color:#fff;font-size:13.5px;font-weight:700;margin:8px 0 4px}
+.step .st-d{color:rgba(255,255,255,.6);font-size:12px;line-height:1.55}
+.step a.st-go{display:inline-block;margin-top:8px;color:var(--gold);font-size:12px;font-weight:700;text-decoration:none;cursor:pointer;border-bottom:1px solid rgba(201,168,76,.4)}
+/* ===== Gallery ký ức ===== */
+.gal-wrap{margin:22px 0}
+.gal{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px}
+.gal .gi{position:relative;aspect-ratio:4/3;border-radius:11px;overflow:hidden;cursor:pointer;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06)}
+.gal .gi img{width:100%;height:100%;object-fit:cover;transition:transform .4s;display:block}
+.gal .gi:hover img{transform:scale(1.07)}
+.gal .gi .cap{position:absolute;left:0;right:0;bottom:0;padding:14px 8px 6px;font-size:10.5px;color:#fff;background:linear-gradient(transparent,rgba(0,0,0,.75));opacity:0;transition:opacity .25s}
+.gal .gi:hover .cap{opacity:1}
+.gal-more{text-align:center;margin-top:12px}
+.gal-more a{display:inline-flex;align-items:center;gap:6px;background:rgba(15,157,88,.15);border:1px solid rgba(15,157,88,.4);color:#5fd99a;padding:10px 18px;border-radius:10px;font-size:12px;font-weight:600;text-decoration:none}
+.gal-empty{color:rgba(255,255,255,.4);font-size:12px;text-align:center;padding:24px;font-style:italic;line-height:1.7}
+/* class filter chips */
+.gal-filter{display:flex;gap:6px;overflow-x:auto;padding:4px 0 10px;margin-bottom:4px;-webkit-overflow-scrolling:touch}
+.gchip{flex-shrink:0;padding:7px 14px;border-radius:20px;border:1px solid rgba(201,168,76,.25);background:rgba(255,255,255,.03);color:rgba(255,255,255,.55);font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;font-family:inherit;transition:all .2s}
+.gchip:hover{color:#fff;border-color:rgba(201,168,76,.5)}
+.gchip.active{background:linear-gradient(135deg,var(--gold),#E8D5A0);color:var(--navy);border-color:var(--gold)}
+.gchip .cnt{opacity:.6;font-weight:400;font-size:11px}
+/* video card */
+.gal .gi.vid::after{content:'▶';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:46px;height:46px;background:rgba(231,76,60,.92);border-radius:50%;color:#fff;font-size:16px;display:flex;align-items:center;justify-content:center;padding-left:3px;box-shadow:0 4px 16px rgba(0,0,0,.4);z-index:2}
+.lb iframe{width:min(900px,100%);aspect-ratio:16/9;border:none;border-radius:10px;box-shadow:0 10px 50px rgba(0,0,0,.6)}
+/* lightbox */
+.lb{position:fixed;inset:0;background:rgba(0,0,0,.92);display:none;align-items:center;justify-content:center;z-index:1200;padding:20px;flex-direction:column}
+.lb.show{display:flex}
+.lb img{max-width:100%;max-height:82vh;border-radius:10px;box-shadow:0 10px 50px rgba(0,0,0,.6)}
+.lb .lcap{color:#fff;font-size:13px;margin-top:12px;text-align:center;max-width:600px}
+.lb .lcl{position:absolute;top:16px;right:20px;color:#fff;font-size:30px;cursor:pointer;background:none;border:none;line-height:1}
+.lb .lnav{position:absolute;top:50%;transform:translateY(-50%);color:#fff;font-size:40px;cursor:pointer;background:rgba(255,255,255,.08);border:none;width:52px;height:72px;border-radius:10px}
+.lb .lprev{left:14px}.lb .lnext{right:14px}
+.sec-intro{color:rgba(255,255,255,.55);font-size:12.5px;line-height:1.6;margin-top:4px}
+.admin-toggle{text-align:center;margin:18px 0 0}
+.admin-toggle button{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.4);font-size:11px;padding:8px 16px;border-radius:8px;cursor:pointer;font-family:inherit}
+.admin-toggle button:hover{color:var(--goldbg)}
+@media(max-width:600px){.sts{grid-template-columns:repeat(2,1fr)}.cb .n{font-size:24px}.bg{grid-template-columns:1fr}.bk{padding:14px}.st .v{font-size:18px}.hero{min-height:240px}.gal{grid-template-columns:repeat(2,1fr)}.lb .lnav{width:42px;height:60px;font-size:30px}}
 </style>
 </head>
 <body>
 
 <div class="ct">
-  <div class="hd">
-    <div class="tg">Thanh Xuân Vẫy Gọi</div>
-    <h1>HỘI KHÓA 20 NĂM – NGUYỄN HUỆ</h1>
-    <div class="sb">THPT Chuyên Nguyễn Huệ – Hà Tây · Khóa 2003–2006 · Thứ Bảy 08/08/2026</div>
+  <!-- ===== HERO KÝ ỨC ===== -->
+  <div class="hero">
+    <img class="bgimg" src="thumbnail.jpg" alt="Trường THPT Chuyên Nguyễn Huệ" onerror="this.style.display='none'">
+    <div class="ov2"></div>
+    <div class="htx">
+      <div class="pre">Những năm tháng ấy – mãi là thanh xuân rực rỡ</div>
+      <div class="big">THANH XUÂN<br>VẪY GỌI</div>
+      <div class="post">Hội khóa <b>20 năm</b> cựu học sinh THPT Chuyên Nguyễn Huệ – Hà Tây</div>
+      <div class="meta">Niên khóa 2003–2006 · Thứ Bảy 08/08/2026 · Tại sân trường xưa</div>
+    </div>
   </div>
 
   <div class="cd" id="countdown"></div>
+
+  <!-- ===== ĐÔI LỜI TỪ BTC ===== -->
+  <div class="letter">
+    <div class="lh">💌 Đôi lời từ Ban Tổ Chức HK 20 năm Chuyên Nguyễn Huệ – Hà Tây 03–06</div>
+    <p>Gửi những Đồng môn của khóa 2003–2006, THPT Chuyên Nguyễn Huệ 03–06,</p>
+    <p>Hai mươi năm trước, tiếng trống trường gọi chúng ta vào lớp. Chúng ta đã cùng nhau đi qua những buổi sáng đạp xe tới trường, những giờ kiểm tra hồi hộp, những trưa hè oi ả, những lớp học thêm chật chội, những tiết chào cờ đầu tuần nhiều cảm xúc, và cả những lời hẹn "sau này nhất định gặp lại".</p>
+    <p class="em">Mùa hè này, chúng ta hẹn nhau trở về — không phải để khoe đã đi xa đến đâu, mà để cảm ơn nơi đã cho mình điểm bắt đầu, cùng nhau.</p>
+    <p>Trang này là lời mời chân thành gửi đến từng người. Ở đây bạn sẽ thấy chương trình ngày trở về, tìm lại bạn bè cũ, và cùng góp một phần nhỏ để ngày hội khóa thật trọn vẹn — đặc biệt là để tri ân những thầy cô năm xưa, nay đã có người tóc đã bạc, có những người chúng ta lỡ bao lời cảm ơn!</p>
+    <p class="em">Dù bạn ở đâu, làm gì — chỉ cần bạn trở về, là đủ.</p>
+    <div class="sign">Thân mến,<b>Ban Tổ Chức Hội khóa 20 năm</b>Khóa 2003–2006 · Chuyên Nguyễn Huệ – Hà Tây</div>
+  </div>
+
+  <!-- ===== TÂM THƯ TRƯỞNG BTC ===== -->
+  <div class="letter">
+    <div class="lh">💌 Tâm thư gửi các bạn đồng môn 03–06</div>
+    <p class="em">Đầu tiên tớ phải khẳng định: đây là lời của Tớ, tạm thời là trưởng BTC chương trình Hội khóa 20 năm THPT Chuyên Nguyễn Huệ – Hà Tây, không phải nội dung AI.</p>
+    <p>Tớ là Nghĩa, lớp Chuyên Lý, Nguyễn Huệ 03–06. Tớ không dám nhận đại diện cho toàn khóa, tớ chỉ có một mong muốn thật sự: cùng các bạn tổ chức một buổi Tri ân thầy cô, Gặp mặt bạn bè nhân 20 năm ra trường — một dấu mốc tớ thấy ý nghĩa nhất đời người. Mười năm trước mình còn lông bông, mười năm nữa nhiều bạn đã lên ông lên bà, nhiều thầy cô có lẽ đã không còn, hoặc đã quá lớn tuổi để tới dự. Điều đó khiến tớ day dứt mãi và quyết tâm phải làm thật nhanh chương trình này.</p>
+    <div id="letterMore" style="display:none">
+      <p>Tớ hiểu ở tuổi ngấp nghé 40, mọi người đa số rất bận rộn với công việc, sự nghiệp và gia đình. Sau 20 năm ra trường, chúng ta đi theo những ngã rẽ khác nhau — không phải ai cũng dư dả, không phải ai cũng linh động thời gian, không phải ai cũng ở quanh Hà Đông, Hà Nội. Nhưng một chương trình ý nghĩa như thế này, tớ không muốn bỏ qua một tập thể nào.</p>
+      <p>Chúng ta có khối chuyên, khối phổ thông. Có Chuyên Toán, Lý, Hóa, Văn, Sinh, Sử, Địa, Anh, Pháp, Tin. Có Phổ thông 1, 2, 3, 4. Không thể thiếu một tập thể nào mà trọn vẹn được khóa 03–06. Và mỗi lớp sẽ rất thiếu sót nếu vắng một thành viên nào đó.</p>
+      <p>Tớ mong các bạn, khi đọc những dòng này, hãy nhắm mắt lại và nghĩ về ký ức thật đẹp của quãng thời gian chúng ta đã cùng xây nên một tập thể tuyệt vời. Những trận đá cầu kịch liệt, trò đuổi bắt trong nhà đa năng, những giờ loanh quanh quán game gần trường, những lần sao đỏ bắt lỗi đi muộn, lỗi quàng khăn đỏ, những lần bị nêu tên trước giờ chào cờ — tớ cũng bị một lần vì đi học muộn — rồi có bạn lớp tớ bị thầy Bình hiệu trưởng tóm lại bắt đi cắt tóc ngay ngày đầu mới vào trường… Những kỷ niệm học trò ngọt ngào và diệu kỳ ấy vĩnh viễn không sống lại được ngoài đời, nhưng nó là giai đoạn đẹp nhất đời chúng ta.</p>
+      <p>Dù mái trường cũ không còn, chương trình tổ chức ở trường mới, nhưng linh hồn của những điều tuyệt vời nhất nằm trong trái tim mỗi người, nằm trong tinh thần của mỗi thầy, mỗi cô đã tận tình dạy dỗ chúng ta nên người.</p>
+    </div>
+    <p class="em" style="font-size:15px;text-align:center;margin-top:14px">Hãy về với nhau đi các bạn, 20 năm rồi —<br>hãy cùng trao nhau một kỷ niệm cả đời chỉ có một lần này!</p>
+    <div style="text-align:center"><button onclick="toggleLetter()" id="letterBtn" style="background:none;border:1px solid rgba(201,168,76,.4);color:var(--gold);padding:7px 18px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;margin-top:4px">Đọc trọn tâm thư ↓</button></div>
+    <div class="sign">Bạn của các bạn,<b>Nghĩa · Chuyên Lý</b>Trưởng BTC · Chuyên Nguyễn Huệ – Hà Tây 03–06</div>
+  </div>
+
+  <!-- ===== CHÚNG TA CÙNG VỀ NHÉ? ===== -->
+  <div class="why">
+    <div class="sc"><h2>💛 Chúng ta cùng về nhé?</h2></div>
+    <div class="why-grid">
+      <div class="why-c"><div class="ic">🏫</div><div class="ti">Trở về với Tiết học Cuối cùng</div><div class="de">Ngồi lại đúng phòng học xưa, nghe lại tiếng trống, gặp lại thầy cô chủ nhiệm một lần nữa.</div></div>
+      <div class="why-c"><div class="ic">🤝</div><div class="ti">Cùng gặp bạn bè xưa</div><div class="de">Hơn 600 con người của một thời — có những gương mặt bạn đã không gặp từ ngày ra trường.</div></div>
+      <div class="why-c"><div class="ic">🙏</div><div class="ti">Tri ân thầy cô và mái trường xưa</div><div class="de">Nói lời cảm ơn khi còn kịp với những người đã dạy ta nên người, và góp quỹ học bổng nâng đỡ các thế hệ hậu bối.</div></div>
+      <div class="why-c"><div class="ic">📸</div><div class="ti">Lưu giữ ký ức duy nhất trong đời</div><div class="de">Một bộ ảnh, một thước phim kỷ niệm 20 năm trang trọng — cả đời chỉ có một lần.</div></div>
+      <div class="why-c"><div class="ic">🌐</div><div class="ti">Kết nối network cho cuộc sống</div><div class="de">Bạn cũ nay đã ở khắp các lĩnh vực — một mối quan hệ tin cậy sau 20 năm là điều quý giá.</div></div>
+      <div class="why-c"><div class="ic">✨</div><div class="ti">Sống lại khoảnh khắc thanh xuân</div><div class="de">Một ngày được trẻ lại, được là học trò của mái trường Nguyễn Huệ thêm một lần nữa.</div></div>
+    </div>
+  </div>
+
+  <!-- ===== BẠN CẦN LÀM GÌ ===== -->
+  <div class="why">
+    <div class="sc"><h2>🎯 Bạn có thể góp sức thế nào?</h2>
+    <div class="sec-intro">Ba việc nhỏ, ai cũng làm được — và mỗi việc đều giúp ngày trở về trọn vẹn hơn.</div></div>
+    <div class="steps">
+      <div class="step"><div class="no">1</div><div class="st-t">Xác nhận sẽ về</div><div class="st-d">Bấm "Có, mình sẽ về" bên dưới để BTC sắp xếp đón tiếp. Mất 30 giây.</div><a class="st-go" onclick="document.querySelector('.rsvp').scrollIntoView({behavior:'smooth'})">Đăng ký ngay ↓</a></div>
+      <div class="step"><div class="no">2</div><div class="st-t">Rủ thêm bạn bè cũ</div><div class="st-d">Gửi link này vào nhóm lớp, tag những đứa bạn đã "mất tích". Càng đông càng vui.</div><a class="st-go" href="https://www.facebook.com/groups/2199210970835888" target="_blank">Vào group lớp →</a></div>
+      <div class="step"><div class="no">3</div><div class="st-t">Góp quỹ</div><div class="st-d">Mỗi đóng góp đều giúp lo hậu cần, quà tri ân thầy cô và học bổng cho trường. Liên hệ thủ quỹ lớp mình, hoặc đóng góp trực tiếp về BTC.</div><a class="st-go" onclick="document.querySelector('.bk').scrollIntoView({behavior:'smooth'})">Xem cách góp ↓</a></div>
+    </div>
+  </div>
 
   <div id="app">
     <div class="loading"><div class="spin"></div><div style="margin-top:12px">Đang tải dữ liệu...</div></div>
@@ -197,16 +316,24 @@ body{font-family:'Be Vietnam Pro',sans-serif;background:var(--navy);color:#fff;m
   <div class="am" id="mtqAmount"></div>
 </div>
 
+<!-- Lightbox gallery -->
+<div class="lb" id="lb">
+  <button class="lcl" onclick="lbClose()">×</button>
+  <button class="lnav lprev" onclick="lbNav(-1)">‹</button>
+  <img id="lbImg" src="" alt="">
+  <div id="lbFrame"></div>
+  <button class="lnav lnext" onclick="lbNav(1)">›</button>
+  <div class="lcap" id="lbCap"></div>
+</div>
+
 <script>
-/* ================================================================
-   SHEET ID đã điền sẵn. Yêu cầu Sheets: Share → Anyone with link → Viewer
-   ================================================================ */
 const SHEET_ID = '1JklOTleXY0LfVNKxfZ6pM7ljv9HDtOs-TfwHbmlkZwU';
 const RSVP_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxp2dBOXnT7Yq6WWxROYTfh8Ef14rq8mbbgPOjIAlM6DLEGZvzleYlJXD75x2WtfIiz/exec';
-const TABS = { cauHinh:'Cấu hình', dashboard:'DASHBOARD', dongGop:'Đóng góp', checklist:'Checklist', rsvp:'RSVP', hof:'Hall of Fame' };
+const TABS = { cauHinh:'Cấu hình', dashboard:'DASHBOARD', dongGop:'Đóng góp', checklist:'Checklist', rsvp:'RSVP', hof:'Hall of Fame', anh:'Ảnh' };
 const EVENT = new Date('2026-08-08T07:00:00+07:00');
 const REFRESH_MS = 5 * 60 * 1000;
-/* ================================================================ */
+/* Link album Drive để nút "Xem toàn bộ" trỏ tới (BTC sửa được trong tab Cấu hình ô formLink nếu muốn) */
+const ALBUM_FALLBACK = 'https://drive.google.com/drive/u/0/folders/1SM3cPp8FiJg0z2Mm0_o8XDbBaxu1-QtW';
 
 function csvUrl(tab) {
   return `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(tab)}&headers=0&r=${Date.now()}`;
@@ -267,10 +394,10 @@ async function fetchTab(tab) {
 }
 
 async function loadAll() {
-  const [ch, db, dg, cl, rsvp, hof] = await Promise.all([
+  const [ch, db, dg, cl, rsvp, hof, anh] = await Promise.all([
     fetchTab(TABS.cauHinh), fetchTab(TABS.dashboard),
     fetchTab(TABS.dongGop), fetchTab(TABS.checklist), fetchTab(TABS.rsvp),
-    fetchTab(TABS.hof)
+    fetchTab(TABS.hof), fetchTab(TABS.anh)
   ]);
 
   if (!ch && !db) {
@@ -377,9 +504,132 @@ async function loadAll() {
     }
   }
 
+  // === ẢNH & VIDEO KÝ ỨC (tab "Ảnh") ===
+  // Cột A(0)=Lớp/Nhóm (vd: "Trường", "Chuyên Lý"), B(1)=Link (Drive/ảnh/YouTube),
+  // C(2)=Chú thích, D(3)=Loại ("video" nếu là clip; để trống = ảnh).
+  d.anh = [];
+  if (anh) {
+    for (let i = 0; i < anh.length; i++) {
+      const link = cell(anh,i,1);
+      if (!link || !/https?:\/\//i.test(link)) continue;   // chỉ nhận dòng có link thật → tự bỏ header
+      const lop = cell(anh,i,0) || 'Trường';
+      const cap = cell(anh,i,2);
+      const loaiRaw = (cell(anh,i,3) || '').toLowerCase();
+      const yt = ytId(link);
+      const isVid = yt || /video|youtube|clip/.test(loaiRaw);
+      d.anh.push({
+        lop: lop.trim(),
+        cap: cap,
+        isVid: !!isVid,
+        ytId: yt,
+        thumb: yt ? `https://img.youtube.com/vi/${yt}/hqdefault.jpg` : driveImg(link),
+        full: yt ? '' : driveImg(link, 1600)
+      });
+    }
+  }
+
   render(d);
   checkNewMTQ(d.mtqList);
 }
+
+/* ===== GALLERY: đọc tab "Ảnh" của Google Sheets =====
+   Cột A=Lớp/Nhóm · B=Link · C=Chú thích · D=Loại(video). Tự nhận YouTube & Drive. ===== */
+function driveImg(url, w) {
+  if (!url) return '';
+  url = url.trim();
+  let m = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/) || url.match(/[?&]id=([a-zA-Z0-9_-]+)/) || url.match(/\/d\/([a-zA-Z0-9_-]+)/);
+  if (m) return `https://lh3.googleusercontent.com/d/${m[1]}=w${w||800}`;
+  return url; // link ảnh trực tiếp / CDN
+}
+function ytId(url) {
+  if (!url) return '';
+  const m = url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+  return m ? m[1] : '';
+}
+
+/* ===== GALLERY render: lọc theo Lớp/Nhóm ===== */
+let galAll = [];      // toàn bộ item
+let galItems = [];    // item đang hiển thị (sau lọc)
+let galActive = 'Trường';
+
+function buildGallery(d) {
+  const wrap = document.getElementById('galBox');
+  if (!wrap) return;
+  galAll = d.anh || [];
+  if (!galAll.length) {
+    wrap.innerHTML = `<div class="gal-empty">Album ký ức đang được BTC cập nhật.<br>Bạn có ảnh hoặc clip cũ thời 2003–2006? Gửi vào Drive chung để cùng nhau "đánh thức" lại một thời thanh xuân nhé 💛</div>`;
+    return;
+  }
+  // Danh sách nhóm, "Trường" luôn đứng đầu nếu có
+  const order = [];
+  galAll.forEach(g => { if (!order.includes(g.lop)) order.push(g.lop); });
+  order.sort((a,b) => (a==='Trường'?-1:b==='Trường'?1:0));
+  if (!order.includes(galActive)) galActive = order[0];
+
+  const chips = order.map(lop => {
+    const n = galAll.filter(g => g.lop === lop).length;
+    return `<button class="gchip ${lop===galActive?'active':''}" onclick="galFilter('${lop.replace(/'/g,"\\'")}')">${lop} <span class="cnt">${n}</span></button>`;
+  }).join('');
+
+  wrap.innerHTML = `<div class="gal-filter">${chips}</div><div id="galGrid"></div>`;
+  renderGalGrid();
+}
+
+function galFilter(lop) {
+  galActive = lop;
+  const order = [];
+  galAll.forEach(g => { if (!order.includes(g.lop)) order.push(g.lop); });
+  order.sort((a,b) => (a==='Trường'?-1:b==='Trường'?1:0));
+  document.querySelector('.gal-filter').innerHTML = order.map(l => {
+    const n = galAll.filter(g => g.lop === l).length;
+    return `<button class="gchip ${l===galActive?'active':''}" onclick="galFilter('${l.replace(/'/g,"\\'")}')">${l} <span class="cnt">${n}</span></button>`;
+  }).join('');
+  renderGalGrid();
+}
+
+function renderGalGrid() {
+  galItems = galAll.filter(g => g.lop === galActive);
+  const grid = document.getElementById('galGrid');
+  if (!grid) return;
+  grid.innerHTML = '<div class="gal">' + galItems.map((g, i) =>
+    `<div class="gi ${g.isVid?'vid':''}" onclick="lbOpen(${i})"><img loading="lazy" src="${g.thumb}" alt="${g.cap||''}" onerror="this.parentElement.style.display='none'">${g.cap?`<div class="cap">${g.cap}</div>`:''}</div>`
+  ).join('') + '</div>';
+}
+
+/* ===== Lightbox: ảnh + video YouTube ===== */
+let lbIdx = 0;
+function lbOpen(i) {
+  const g = galItems[i]; if (!g) return;
+  lbIdx = i;
+  const img = document.getElementById('lbImg');
+  const frameHost = document.getElementById('lbFrame');
+  if (g.isVid && g.ytId) {
+    img.style.display = 'none';
+    frameHost.innerHTML = `<iframe src="https://www.youtube.com/embed/${g.ytId}?autoplay=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+  } else {
+    frameHost.innerHTML = '';
+    img.style.display = '';
+    img.src = g.full || g.thumb;
+  }
+  document.getElementById('lbCap').textContent = g.cap || '';
+  document.getElementById('lb').classList.add('show');
+}
+function lbNav(dir) {
+  if (!galItems.length) return;
+  lbIdx = (lbIdx + dir + galItems.length) % galItems.length;
+  lbOpen(lbIdx);
+}
+function lbClose() {
+  document.getElementById('lb').classList.remove('show');
+  document.getElementById('lbFrame').innerHTML = ''; // dừng video
+}
+document.getElementById('lb').addEventListener('click', e => { if (e.target.id === 'lb') lbClose(); });
+document.addEventListener('keydown', e => {
+  if (!document.getElementById('lb').classList.contains('show')) return;
+  if (e.key === 'Escape') lbClose();
+  if (e.key === 'ArrowLeft') lbNav(-1);
+  if (e.key === 'ArrowRight') lbNav(1);
+});
 
 /* ===== MTQ thank-you popup =====
    So sánh danh sách MTQ giữa các lần refresh; khi có MTQ MỚI có số tiền,
@@ -485,6 +735,12 @@ function render(d) {
     </div>
     <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--goldbg);margin-top:8px"><span>Quỹ: ${fmt(d.daHuyDong)}đ</span><span>Mục tiêu: ${fmt(d.mucTieu)}đ</span></div>
     <div class="gg"><div class="gf" style="width:${Math.max(pct,2)}%;background:linear-gradient(90deg,var(--green),var(--gold))">${pct}%</div></div>
+    <div class="gal-wrap">
+      <div class="sc"><h2>📸 Góc ký ức 2003–2006</h2>
+      <div class="sec-intro">Ảnh trường, ảnh từng lớp và cả những thước phim cũ. Chọn lớp của bạn để xem lại — album được BTC cập nhật liên tục từ Drive.</div></div>
+      <div id="galBox"></div>
+      <div class="gal-more"><a href="${ALBUM_FALLBACK}" target="_blank">📁 Xem & đóng góp ảnh trong Drive chung →</a></div>
+    </div>
     <div class="rsvp">
       <h3>🎓 Bạn sẽ về trường chứ?</h3>
       <p>Xác nhận tham dự để BTC chuẩn bị đón tiếp chu đáo. Hẹn gặp ngày 08/08/2026!</p>
@@ -499,6 +755,8 @@ function render(d) {
     ${bankH}
     <div class="sc"><h2>👥 Ban Tổ Chức</h2></div>
     ${btcH}
+    <div class="sc" style="margin-top:26px"><h2>📊 Công khai – Minh bạch</h2>
+    <div class="sec-intro">Mọi khoản đóng góp và chi tiêu đều được cập nhật công khai tại đây, real-time từ Google Sheets của BTC.</div></div>
     <div class="tabs">
       <button class="tab active" onclick="stab('cl',this)">📋 Checklist</button>
       <button class="tab" onclick="stab('dg',this)">💰 Đóng góp</button>
@@ -523,6 +781,15 @@ function render(d) {
       </table></div>
     </div>
     <div class="refresh">Cập nhật lúc ${timeStr} · Tự động refresh mỗi 5 phút</div>`;
+  buildGallery(d);
+}
+
+function toggleLetter() {
+  const m = document.getElementById('letterMore');
+  const b = document.getElementById('letterBtn');
+  const open = m.style.display === 'none';
+  m.style.display = open ? 'block' : 'none';
+  b.textContent = open ? 'Thu gọn ↑' : 'Đọc trọn tâm thư ↓';
 }
 
 function stab(id, el) {
