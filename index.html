@@ -23,7 +23,7 @@ body{font-family:'Be Vietnam Pro',sans-serif;background:var(--navy);color:#fff;m
 .st{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:14px 10px;text-align:center;transition:transform .2s}
 .st:hover{transform:translateY(-2px)}
 .st .v{font-size:22px;font-weight:800;font-family:'Be Vietnam Pro',monospace;color:var(--gold);word-break:break-word}
-.st .lb{font-size:10px;color:rgba(255,255,255,.45);margin-top:3px}
+.st .stl{font-size:10px;color:rgba(255,255,255,.55);margin-top:4px;line-height:1.25}
 .gg{background:rgba(255,255,255,.08);border-radius:10px;height:24px;overflow:hidden;margin:12px 0;border:1px solid rgba(201,168,76,.15)}
 .gf{height:100%;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--navy);transition:width .8s ease;min-width:32px}
 .lks{display:flex;gap:8px;margin:14px 0;flex-wrap:wrap}
@@ -385,6 +385,17 @@ function num(s) {
 function fmt(n) { return Math.round(n || 0).toLocaleString('vi-VN'); }
 function clean(s) { return (s && s.startsWith('(')) ? '' : s; }
 
+/* Tự xếp CẤP vinh danh theo số tiền (VNĐ). Sửa ngưỡng tại đây nếu muốn. */
+function capTheoTien(tien) {
+  tien = tien || 0;
+  if (tien >= 20000000) return '💎 Kim cương';   // ≥ 20 triệu
+  if (tien >= 10000000) return '🏆 Vàng';         // ≥ 10 triệu
+  if (tien >=  5000000) return '🔥 Góp lửa';       // ≥ 5 triệu
+  if (tien >=  2000000) return '🌟 Đồng hành';     // ≥ 2 triệu
+  if (tien >         0) return '🤝 Mạnh thường quân';
+  return '';
+}
+
 /* Tìm giá trị theo NHÃN ở cột A (không phụ thuộc vị trí dòng cố định).
    labels: mảng từ khóa; trả về nội dung cột `valCol` (mặc định B=1) của dòng khớp đầu tien. */
 function findByLabel(rows, labels, valCol) {
@@ -503,16 +514,13 @@ async function loadAll() {
 
   // === HALL OF FAME → danh sách MTQ (để popup cảm ơn) ===
   // Cột: STT(0) Cấp(1) Họ tên/Đơn vị(2) Lớp(3) Số tiền(4) Hiển thị(5) Ghi chú(6)
+  // CẤP được TỰ TÍNH theo số tiền (không cần điền cột Cấp, không cần xếp theo khối).
   d.mtqList = [];
   if (hof) {
-    let tier = '';
     for (let i = 4; i < hof.length; i++) {
-      const c0 = cell(hof,i,0);
-      // dòng tiêu đề cấp (không phải số thứ tự)
-      if (c0 && !/^\d+$/.test(c0)) { tier = c0; continue; }
       const ten = cell(hof,i,2);
       const tien = num(cell(hof,i,4));
-      if (!ten && !tien) continue;            // dòng trống
+      if (!ten && !tien) continue;            // dòng trống / dòng tiêu đề
       const hienThi = cell(hof,i,5);          // "Ẩn danh" / "Công khai" / để trống
       const anDanh = /ẩn\s*danh/i.test(hienThi) || !ten;
       d.mtqList.push({
@@ -520,7 +528,7 @@ async function loadAll() {
         ten: ten,
         lop: cell(hof,i,3),
         tien: tien,
-        tier: tier,
+        tier: capTheoTien(tien),              // tự xếp hạng theo số tiền
         anDanh: anDanh
       });
     }
@@ -685,7 +693,7 @@ function drainMTQ() {
   } else {
     nameEl.textContent = m.ten + (m.lop ? ' (' + m.lop + ')' : '');
   }
-  amtEl.textContent = 'đã đóng góp ' + fmt(m.tien) + 'đ';
+  amtEl.textContent = 'đã đóng góp ' + fmt(m.tien) + 'đ' + (m.tier ? ' · ' + m.tier : '');
   el.classList.add('show');
   clearTimeout(el._t);
   el._t = setTimeout(() => { hideMtq(); }, 6500);
@@ -748,12 +756,12 @@ function render(d) {
       ${extraLinks}
     </div>
     <div class="sts">
-      <div class="st"><div class="v">${diffD}</div><div class="lb">ngày còn lại</div></div>
-      <div class="st"><div class="v" style="color:${pct>50?'var(--green)':'var(--gold)'}">${fmt(d.daHuyDong)}</div><div class="lb">đã huy động (đ)</div></div>
-      <div class="st"><div class="v">${d.soDangKy}</div><div class="lb">đăng ký tham dự</div></div>
-      <div class="st"><div class="v">${d.soThayCo}</div><div class="lb">thầy cô xác nhận</div></div>
-      <div class="st"><div class="v">${clP}%</div><div class="lb">checklist</div></div>
-      <div class="st"><div class="v">${d.soMTQ}</div><div class="lb">mạnh thường quân</div></div>
+      <div class="st"><div class="v">${diffD}</div><div class="stl">ngày còn lại</div></div>
+      <div class="st"><div class="v" style="color:${pct>50?'var(--green)':'var(--gold)'}">${fmt(d.daHuyDong)}</div><div class="stl">đã huy động (đ)</div></div>
+      <div class="st"><div class="v">${d.soDangKy}</div><div class="stl">đăng ký tham dự</div></div>
+      <div class="st"><div class="v">${d.soThayCo}</div><div class="stl">thầy cô xác nhận</div></div>
+      <div class="st"><div class="v">${clP}%</div><div class="stl">checklist hoàn thành</div></div>
+      <div class="st"><div class="v">${d.soMTQ}</div><div class="stl">mạnh thường quân</div></div>
     </div>
     <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--goldbg);margin-top:8px"><span>Quỹ: ${fmt(d.daHuyDong)}đ</span><span>Mục tiêu: ${fmt(d.mucTieu)}đ</span></div>
     <div class="gg"><div class="gf" style="width:${Math.max(pct,2)}%;background:linear-gradient(90deg,var(--green),var(--gold))">${pct}%</div></div>
